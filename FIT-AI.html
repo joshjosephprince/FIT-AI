@@ -1,0 +1,2242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FitAI | AI Digital Fitting</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#080b18;
+    color:white;
+}
+
+/* ================= NAVBAR ================= */
+
+nav{
+    width:100%;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 7%;
+    background:rgba(8,11,24,.95);
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid #202642;
+}
+
+.logo{
+    font-size:30px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#35e0dc;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:35px;
+}
+
+nav ul li a{
+    color:#c8cbe0;
+    text-decoration:none;
+    font-size:15px;
+}
+
+nav ul li a:hover{
+    color:#35e0dc;
+}
+
+.nav-btn{
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    padding:12px 22px;
+    border-radius:25px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 8%;
+}
+
+.hero-text{
+    width:55%;
+}
+
+.small-tag{
+    display:inline-block;
+    padding:8px 16px;
+    background:#9b5cff;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:68px;
+    line-height:1.05;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#35e0dc;
+}
+
+.hero p{
+    color:#aeb2c8;
+    font-size:20px;
+    line-height:1.6;
+    max-width:600px;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.primary-btn,
+.secondary-btn{
+    padding:15px 28px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.primary-btn{
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    color:white;
+    border:none;
+}
+
+.secondary-btn{
+    background:transparent;
+    color:white;
+    border:1px solid #35e0dc;
+}
+
+/* ================= PHONE ================= */
+
+.phone-area{
+    width:35%;
+    display:flex;
+    justify-content:center;
+}
+
+.phone{
+    width:270px;
+    height:520px;
+    background:#1b2138;
+    border:4px solid #35e0dc;
+    border-radius:40px;
+    padding:15px;
+    box-shadow:0 0 50px rgba(53,224,220,.25);
+    transform:rotate(3deg);
+}
+
+.phone-top{
+    width:90px;
+    height:18px;
+    background:#080b18;
+    border-radius:20px;
+    margin:auto;
+}
+
+.phone-screen{
+    height:440px;
+    margin-top:15px;
+    border-radius:25px;
+    background:#eef2fa;
+    color:#101426;
+    padding:30px 20px;
+    text-align:center;
+}
+
+.scan-circle{
+    width:130px;
+    height:130px;
+    border:6px solid #9b5cff;
+    border-radius:50%;
+    margin:25px auto;
+}
+
+.fit-score{
+    background:#35d8d0;
+    padding:12px;
+    border-radius:15px;
+    margin-top:20px;
+    color:white;
+    font-weight:bold;
+}
+
+.score-number{
+    font-size:45px;
+    color:#172039;
+}
+
+/* ================= SECTIONS ================= */
+
+section{
+    padding:100px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title .number{
+    color:#ff3ca6;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.section-title h2{
+    font-size:45px;
+    margin:10px 0;
+}
+
+.section-title p{
+    color:#9fa4bb;
+    font-size:17px;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.card{
+    background:#141a2d;
+    border:1px solid #29304a;
+    padding:35px;
+    border-radius:25px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#35e0dc;
+}
+
+.card-icon{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    background:#242a43;
+    margin-bottom:25px;
+}
+
+.card h3{
+    font-size:23px;
+    margin-bottom:15px;
+}
+
+.card p{
+    color:#a3a8bd;
+    line-height:1.7;
+}
+
+/* ================= REAL FITAI SCANNER ================= */
+
+.scanner-section{
+    background:#0d1121;
+    text-align:center;
+}
+
+.scanner-box{
+    max-width:750px;
+    margin:auto;
+    background:#141a2d;
+    padding:40px;
+    border-radius:30px;
+    border:1px solid #29304a;
+}
+
+.scanner-box h2{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.scanner-box p{
+    color:#aeb2c8;
+    margin-bottom:30px;
+}
+
+/* CAMERA BUTTON */
+
+.camera-button{
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    border:none;
+    background:#111827;
+    color:white;
+    font-size:55px;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 0 30px rgba(53,224,220,.25);
+}
+
+.camera-button:hover{
+    transform:scale(1.08);
+    background:#7c3aed;
+}
+
+/* CAMERA */
+
+#cameraBox{
+    display:none;
+    margin-top:30px;
+}
+
+#camera{
+    width:100%;
+    max-width:500px;
+    border-radius:20px;
+    border:2px solid #35e0dc;
+}
+
+/* CAPTURED PHOTO */
+
+#photo{
+    display:none;
+    width:100%;
+    max-width:500px;
+    margin:25px auto;
+    border-radius:20px;
+}
+
+/* BUTTONS */
+
+.scan-button{
+    padding:15px 30px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin:15px;
+}
+
+/* ANALYZING */
+
+#loading{
+    display:none;
+    margin:25px;
+    color:#35e0dc;
+    font-size:18px;
+}
+
+/* RESULTS */
+
+#result{
+    display:none;
+    margin-top:35px;
+    padding:30px;
+    background:#0d1121;
+    border-radius:25px;
+    text-align:left;
+}
+
+.measurement{
+    display:flex;
+    justify-content:space-between;
+    padding:15px;
+    border-bottom:1px solid #29304a;
+}
+
+.measurement strong{
+    color:#35e0dc;
+}
+
+.recommended{
+    margin-top:25px;
+    padding:20px;
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    border-radius:20px;
+    text-align:center;
+}
+
+.recommended h2{
+    font-size:32px;
+}
+
+/* SIZE TABLE */
+
+.size-table{
+    width:100%;
+    margin-top:25px;
+    border-collapse:collapse;
+}
+
+.size-table th,
+.size-table td{
+    padding:14px;
+    text-align:center;
+    border:1px solid #29304a;
+}
+
+.size-table th{
+    background:#080b18;
+    color:#35e0dc;
+}
+
+/* ================= AI MATCH ================= */
+
+.match-section{
+    background:#0d1121;
+}
+
+.match-container{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:30px;
+}
+
+.person-box,
+.garment-box{
+    width:300px;
+    padding:30px;
+    border-radius:25px;
+    background:#171d31;
+}
+
+.person-box{
+    border:2px solid #35e0dc;
+}
+
+.garment-box{
+    border:2px solid #ffc928;
+}
+
+.person-box h3{
+    color:#35e0dc;
+}
+
+.garment-box h3{
+    color:#ffc928;
+}
+
+.measure{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 0;
+    color:#b7bbcf;
+    border-bottom:1px solid #292f46;
+}
+
+.measure strong{
+    color:white;
+}
+
+.ai-circle{
+    width:130px;
+    height:130px;
+    border:4px solid #9b5cff;
+    border-radius:50%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:#1e2540;
+}
+
+.ai-circle strong{
+    color:#9b5cff;
+    font-size:30px;
+}
+
+.ai-circle span{
+    color:#35e0dc;
+    font-weight:bold;
+}
+
+/* ================= FIT SCORE ================= */
+
+.score-section{
+    text-align:center;
+}
+
+.score-card{
+    max-width:500px;
+    margin:auto;
+    background:#eef2fa;
+    color:#101426;
+    padding:45px;
+    border-radius:30px;
+}
+
+.big-score{
+    font-size:90px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.score-bar{
+    height:15px;
+    background:#d8ddea;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.score-fill{
+    width:94%;
+    height:100%;
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+}
+
+/* ================= PROCESS ================= */
+
+.process{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:12px;
+}
+
+.process-box{
+    padding:25px 15px;
+    min-height:170px;
+    background:#151b2f;
+    border-radius:20px;
+    border:2px solid #35e0dc;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+}
+
+.process-number{
+    color:#35e0dc;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+    text-align:center;
+    background:linear-gradient(135deg,#171335,#10192c);
+}
+
+.cta h2{
+    font-size:50px;
+    margin-bottom:20px;
+}
+
+.cta h2 span{
+    color:#35e0dc;
+}
+
+.cta p{
+    color:#aeb2c8;
+    font-size:18px;
+    margin-bottom:30px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    padding:40px 8%;
+    display:flex;
+    justify-content:space-between;
+    background:#070a14;
+}
+
+.footer-logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.footer-logo span{
+    color:#35e0dc;
+}
+
+
+
+/* ================= LOGIN ================= */
+
+.login-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.80);
+    backdrop-filter:blur(8px);
+    z-index:10000;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-modal{
+    width:100%;
+    max-width:460px;
+    background:#141a2d;
+    border:1px solid #9b5cff;
+    border-radius:28px;
+    padding:38px;
+    box-shadow:0 0 60px rgba(155,92,255,.20);
+    position:relative;
+}
+
+.login-close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #29304a;
+    background:#0d1121;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.login-title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.login-title .login-logo{
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.login-title .login-logo span{
+    color:#35e0dc;
+}
+
+.login-title p{
+    color:#aeb2c8;
+}
+
+.login-form{
+    display:flex;
+    flex-direction:column;
+    gap:17px;
+}
+
+.login-form label{
+    color:#dce0ef;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.login-form input{
+    width:100%;
+    padding:14px 15px;
+    margin-top:7px;
+    border-radius:12px;
+    border:1px solid #303852;
+    background:#0d1121;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.login-form input:focus{
+    border-color:#9b5cff;
+    box-shadow:0 0 0 3px rgba(155,92,255,.10);
+}
+
+.login-submit{
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.login-message{
+    display:none;
+    margin-top:17px;
+    padding:13px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.login-switch{
+    text-align:center;
+    margin-top:20px;
+    color:#9fa4bb;
+    font-size:14px;
+}
+
+.login-switch a{
+    color:#35e0dc;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.user-welcome{
+    display:none;
+    text-align:center;
+    margin-top:15px;
+    color:#35e0dc;
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+    .login-modal{
+        padding:28px 20px;
+    }
+}
+
+/* ================= REGISTRATION ================= */
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.register-nav-btn{
+    padding:11px 20px;
+    border-radius:25px;
+    border:1px solid #35e0dc;
+    background:transparent;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-nav-btn:hover{
+    background:#35e0dc;
+    color:#080b18;
+}
+
+.register-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.78);
+    backdrop-filter:blur(8px);
+    z-index:9999;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.register-modal{
+    width:100%;
+    max-width:560px;
+    max-height:92vh;
+    overflow-y:auto;
+    background:#141a2d;
+    border:1px solid #35e0dc;
+    border-radius:28px;
+    padding:35px;
+    box-shadow:0 0 60px rgba(53,224,220,.20);
+    position:relative;
+}
+
+.register-close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #29304a;
+    background:#0d1121;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.register-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.register-title h2{
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.register-title h2 span{
+    color:#35e0dc;
+}
+
+.register-title p{
+    color:#aeb2c8;
+}
+
+.register-form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:17px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+.form-group label{
+    color:#dce0ef;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:13px 15px;
+    border-radius:12px;
+    border:1px solid #303852;
+    background:#0d1121;
+    color:white;
+    outline:none;
+    font-size:15px;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#35e0dc;
+    box-shadow:0 0 0 3px rgba(53,224,220,.10);
+}
+
+.form-check{
+    grid-column:1 / -1;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    color:#aeb2c8;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.form-check input{
+    margin-top:3px;
+    accent-color:#35e0dc;
+}
+
+.register-submit{
+    grid-column:1 / -1;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(90deg,#35e0dc,#9b5cff);
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-submit:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(53,224,220,.18);
+}
+
+.register-message{
+    display:none;
+    margin-top:18px;
+    padding:13px;
+    border-radius:12px;
+    text-align:center;
+    background:rgba(53,224,220,.12);
+    color:#35e0dc;
+    font-weight:bold;
+}
+
+.login-note{
+    text-align:center;
+    margin-top:18px;
+    color:#9fa4bb;
+    font-size:14px;
+}
+
+.login-note a{
+    color:#35e0dc;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:600px){
+    .nav-actions{
+        gap:7px;
+    }
+
+    .register-nav-btn{
+        padding:9px 13px;
+        font-size:12px;
+    }
+
+    .nav-btn{
+        padding:10px 14px;
+        font-size:12px;
+    }
+
+    .register-modal{
+        padding:25px 18px;
+    }
+
+    .register-title h2{
+        font-size:28px;
+    }
+
+    .register-form{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full,
+    .form-check,
+    .register-submit{
+        grid-column:auto;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:900px){
+
+    nav ul{
+        display:none;
+    }
+
+    .hero{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .hero-text{
+        width:100%;
+    }
+
+    .hero h1{
+        font-size:48px;
+    }
+
+    .phone-area{
+        width:100%;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .match-container{
+        flex-direction:column;
+    }
+
+    .process{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .hero h1{
+        font-size:40px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .process{
+        grid-template-columns:1fr;
+    }
+
+    .scanner-box{
+        padding:20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+
+<div class="logo">
+FIT<span>AI</span>
+</div>
+
+<ul>
+<li><a href="#how">How It Works</a></li>
+<li><a href="#technology">Technology</a></li>
+<li><a href="#scanner">AI Scanner</a></li>
+<li><a href="#match">AI Match</a></li>
+<li><a href="#fit">Fit Score</a></li>
+</ul>
+
+<div class="nav-actions">
+    <button class="register-nav-btn" onclick="openRegister()">Register</button>
+    <a href="#scanner" class="nav-btn">Try FitAI</a>
+</div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="hero-text">
+
+<div class="small-tag">
+AI + COMPUTER VISION
+</div>
+
+<h1>
+Will it <span>fit?</span><br>
+Let AI figure it out.
+</h1>
+
+<p>
+FitAI uses your smartphone camera, computer vision
+and artificial intelligence to predict how a garment
+will fit you — before you buy it.
+</p>
+
+<div class="hero-buttons">
+
+<button class="primary-btn" onclick="startScan()">
+Start Fit Check →
+</button>
+
+<button class="secondary-btn"
+onclick="document.getElementById('how').scrollIntoView()">
+See How It Works
+</button>
+
+</div>
+
+</div>
+
+
+<div class="phone-area">
+
+<div class="phone">
+
+<div class="phone-top"></div>
+
+<div class="phone-screen">
+
+<h3>FITAI</h3>
+
+<div class="scan-circle"></div>
+
+<p>AI BODY SCAN</p>
+
+<div class="fit-score">
+
+FIT SCORE
+
+<div class="score-number">
+94%
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section id="technology">
+
+<div class="section-title">
+
+<div class="number">
+01 — TECHNOLOGY
+</div>
+
+<h2>
+AI sees more than you do.
+</h2>
+
+<p>
+Your phone becomes the first sensor.
+</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="card-icon">
+📱
+</div>
+
+<h3>
+Snap. That's it.
+</h3>
+
+<p>
+Start with smartphone images.
+Your phone captures the visual information
+needed for AI analysis.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👁️
+</div>
+
+<h3>
+Computer Vision
+</h3>
+
+<p>
+AI can identify body landmarks and proportions
+such as shoulders, chest, waist and hips.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👕
+</div>
+
+<h3>
+Meet the Garment
+</h3>
+
+<p>
+FitAI compares body information with
+garment size charts and dimensions.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= REAL CAMERA SCANNER ================= -->
+
+<section class="scanner-section" id="scanner">
+
+<div class="section-title">
+
+<div class="number">
+02 — AI BODY SCANNER
+</div>
+
+<h2>
+Scan Yourself With FitAI
+</h2>
+
+<p>
+Capture an image and let FitAI process your body information.
+</p>
+
+</div>
+
+
+<div class="scanner-box">
+
+<h2>
+📷 Start Your Body Scan
+</h2>
+
+<p>
+Allow camera access and capture a clear full-body image.
+</p>
+
+
+<!-- CAMERA BUTTON -->
+
+<button class="camera-button" onclick="startCamera()">
+📷
+</button>
+
+<p>
+<b>Tap the camera to start</b>
+</p>
+
+
+<!-- CAMERA -->
+
+<div id="cameraBox">
+
+<video id="camera" autoplay playsinline></video>
+
+<br>
+
+<button class="scan-button" onclick="takePhoto()">
+📸 Capture Photo
+</button>
+
+</div>
+
+
+<!-- CANVAS -->
+
+<canvas id="canvas" style="display:none;"></canvas>
+
+
+<!-- PHOTO -->
+
+<img id="photo">
+
+
+<!-- ANALYZE -->
+
+<button id="analyze"
+class="scan-button"
+onclick="analyzeBody()"
+style="display:none;">
+
+✨ Analyze My Body
+
+</button>
+
+
+<!-- LOADING -->
+
+<div id="loading">
+
+🔄 FitAI is analyzing your body proportions...
+
+</div>
+
+
+<!-- RESULTS -->
+
+<div id="result">
+
+<h2>
+🤖 FitAI Analysis
+</h2>
+
+<br>
+
+<div class="measurement">
+
+<span>
+Estimated Height
+</span>
+
+<strong id="height">
+--
+</strong>
+
+</div>
+
+
+<div class="measurement">
+
+<span>
+Shoulder Width
+</span>
+
+<strong id="shoulder">
+--
+</strong>
+
+</div>
+
+
+<div class="measurement">
+
+<span>
+Chest
+</span>
+
+<strong id="chest">
+--
+</strong>
+
+</div>
+
+
+<div class="measurement">
+
+<span>
+Waist
+</span>
+
+<strong id="waist">
+--
+</strong>
+
+</div>
+
+
+<div class="recommended">
+
+<p>
+RECOMMENDED GARMENT SIZE
+</p>
+
+<h2 id="recommendedSize">
+--
+</h2>
+
+</div>
+
+
+<h3 style="margin-top:30px;">
+Garment Size Chart
+</h3>
+
+
+<table class="size-table">
+
+<tr>
+
+<th>
+Size
+</th>
+
+<th>
+Chest
+</th>
+
+<th>
+Waist
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>S</td>
+<td>36"</td>
+<td>30"</td>
+
+</tr>
+
+
+<tr>
+
+<td>M</td>
+<td>38"</td>
+<td>32"</td>
+
+</tr>
+
+
+<tr>
+
+<td>L</td>
+<td>40"</td>
+<td>34"</td>
+
+</tr>
+
+
+<tr>
+
+<td>XL</td>
+<td>42"</td>
+<td>36"</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= AI MATCH ================= -->
+
+<section class="match-section" id="match">
+
+<div class="section-title">
+
+<div class="number">
+03 — AI MATCH MODE
+</div>
+
+<h2>
+AI Match Mode: ON
+</h2>
+
+<p>
+AI compares your body information with the garment.
+</p>
+
+</div>
+
+
+<div class="match-container">
+
+
+<div class="person-box">
+
+<h3>
+YOU
+</h3>
+
+<div class="measure">
+<span>Chest</span>
+<strong id="matchChest">38"</strong>
+</div>
+
+<div class="measure">
+<span>Waist</span>
+<strong id="matchWaist">32"</strong>
+</div>
+
+<div class="measure">
+<span>Hip</span>
+<strong>40"</strong>
+</div>
+
+</div>
+
+
+<div class="ai-circle">
+
+<strong>
+AI
+</strong>
+
+<span>
+MATCH
+</span>
+
+</div>
+
+
+<div class="garment-box">
+
+<h3>
+GARMENT
+</h3>
+
+<div class="measure">
+<span>Chest</span>
+<strong>40"</strong>
+</div>
+
+<div class="measure">
+<span>Waist</span>
+<strong>34"</strong>
+</div>
+
+<div class="measure">
+<span>Length</span>
+<strong>29"</strong>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FIT SCORE ================= -->
+
+<section class="score-section" id="fit">
+
+<div class="section-title">
+
+<div class="number">
+04 — AI PREDICTION
+</div>
+
+<h2>
+AI makes the call.
+</h2>
+
+<p>
+A prediction based on the available fitting data.
+</p>
+
+</div>
+
+
+<div class="score-card">
+
+<h3>
+EXPECTED FIT
+</h3>
+
+<div class="big-score">
+94%
+</div>
+
+<div class="score-bar">
+
+<div class="score-fill"></div>
+
+</div>
+
+<p style="margin-top:20px;color:#2d8b70;font-weight:bold;">
+✓ EXPECTED: COMFORTABLE FIT
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= PROCESS ================= -->
+
+<section id="how">
+
+<div class="section-title">
+
+<div class="number">
+05 — HOW IT WORKS
+</div>
+
+<h2>
+One pipeline. Six steps.
+</h2>
+
+<p>
+Your digital fitting journey.
+</p>
+
+</div>
+
+
+<div class="process">
+
+<div class="process-box">
+
+<div class="process-number">
+01
+</div>
+
+<h3>
+CAMERA
+</h3>
+
+</div>
+
+
+<div class="process-box">
+
+<div class="process-number">
+02
+</div>
+
+<h3>
+COMPUTER<br>
+VISION
+</h3>
+
+</div>
+
+
+<div class="process-box">
+
+<div class="process-number">
+03
+</div>
+
+<h3>
+BODY<br>
+DATA
+</h3>
+
+</div>
+
+
+<div class="process-box">
+
+<div class="process-number">
+04
+</div>
+
+<h3>
+GARMENT<br>
+DATA
+</h3>
+
+</div>
+
+
+<div class="process-box">
+
+<div class="process-number">
+05
+</div>
+
+<h3>
+AI<br>
+MODEL
+</h3>
+
+</div>
+
+
+<div class="process-box">
+
+<div class="process-number">
+06
+</div>
+
+<h3>
+FIT<br>
+PREDICTION
+</h3>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+<h2>
+Try clothes without
+<span>being in the store.</span>
+</h2>
+
+<p>
+AI-powered digital fitting. Faster decisions. Less fitting-room drama.
+</p>
+
+<button class="primary-btn" onclick="startScan()">
+Try FitAI →
+</button>
+
+</section>
+
+
+
+<!-- ================= REGISTRATION MODAL ================= -->
+
+<div class="register-overlay" id="registerOverlay">
+    <div class="register-modal">
+
+        <button class="register-close" onclick="closeRegister()" aria-label="Close">
+            ×
+        </button>
+
+        <div class="register-title">
+            <h2>Join <span>FitAI</span></h2>
+            <p>Create your account and start your digital fitting journey.</p>
+        </div>
+
+        <form class="register-form" id="registerForm" onsubmit="registerUser(event)">
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Mobile Number</label>
+                <input type="tel" id="phoneNumber"
+                       placeholder="+91 98765 43210"
+                       pattern="[0-9+ ()-]{10,17}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" required>
+                    <option value="">Select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Prefer not to say</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword"
+                       placeholder="Create a password"
+                       minlength="6" required>
+            </div>
+
+            <div class="form-group full">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword"
+                       placeholder="Re-enter your password"
+                       minlength="6" required>
+            </div>
+
+            <label class="form-check">
+                <input type="checkbox" id="terms" required>
+                <span>I agree to the FitAI terms and understand that the current
+                website demo stores registration details only for this browser session.</span>
+            </label>
+
+            <button type="submit" class="register-submit">
+                Create My FitAI Account →
+            </button>
+
+        </form>
+
+        <div class="register-message" id="registerMessage"></div>
+
+        <div class="login-note">
+            Already registered?
+            <a href="#" onclick="openLogin(event)">Sign in</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- ================= LOGIN MODAL ================= -->
+
+<div class="login-overlay" id="loginOverlay">
+    <div class="login-modal">
+
+        <button class="login-close" onclick="closeLogin()" aria-label="Close">
+            ×
+        </button>
+
+        <div class="login-title">
+            <div class="login-logo">FIT<span>AI</span></div>
+            <h2>Welcome Back 👋</h2>
+            <p>Sign in to continue your digital fitting journey.</p>
+        </div>
+
+        <form class="login-form" id="loginForm" onsubmit="loginUser(event)">
+
+            <div>
+                <label for="loginEmail">Email Address</label>
+                <input type="email"
+                       id="loginEmail"
+                       placeholder="Enter your registered email"
+                       required>
+            </div>
+
+            <div>
+                <label for="loginPassword">Password</label>
+                <input type="password"
+                       id="loginPassword"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <button type="submit" class="login-submit">
+                Sign In →
+            </button>
+
+        </form>
+
+        <div class="login-message" id="loginMessage"></div>
+
+        <div class="login-switch">
+            Don't have an account?
+            <a href="#" onclick="switchToRegister(event)">Create one</a>
+        </div>
+
+        <div class="user-welcome" id="userWelcome"></div>
+
+    </div>
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-logo">
+FIT<span>AI</span>
+</div>
+
+<p>
+The Future of Digital Fitting ©️ 2026
+</p>
+
+</footer>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+let video = document.getElementById("camera");
+
+let canvas = document.getElementById("canvas");
+
+let photo = document.getElementById("photo");
+
+let cameraBox = document.getElementById("cameraBox");
+
+let analyzeButton = document.getElementById("analyze");
+
+let result = document.getElementById("result");
+
+let loading = document.getElementById("loading");
+
+let cameraStream;
+
+
+/* =========================================
+   SCROLL TO SCANNER
+========================================= */
+
+function startScan(){
+
+    document.getElementById("scanner").scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================
+   START CAMERA
+========================================= */
+
+async function startCamera(){
+
+    cameraBox.style.display = "block";
+
+    try{
+
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+
+            video:{
+                facingMode:"user"
+            },
+
+            audio:false
+
+        });
+
+        video.srcObject = cameraStream;
+
+    }
+
+    catch(error){
+
+        alert(
+            "Camera access was denied. Please allow camera permission and try again."
+        );
+
+        console.log(error);
+
+    }
+
+}
+
+
+/* =========================================
+   CAPTURE PHOTO
+========================================= */
+
+function takePhoto(){
+
+    if(video.videoWidth === 0){
+
+        alert("Camera is still loading. Please wait a moment.");
+
+        return;
+
+    }
+
+
+    canvas.width = video.videoWidth;
+
+    canvas.height = video.videoHeight;
+
+
+    let context = canvas.getContext("2d");
+
+
+    context.drawImage(
+
+        video,
+
+        0,
+
+        0,
+
+        canvas.width,
+
+        canvas.height
+
+    );
+
+
+    let image = canvas.toDataURL("image/jpeg");
+
+
+    photo.src = image;
+
+    photo.style.display = "block";
+
+
+    analyzeButton.style.display = "inline-block";
+
+
+    /* STOP CAMERA */
+
+    if(cameraStream){
+
+        cameraStream.getTracks().forEach(function(track){
+
+            track.stop();
+
+        });
+
+    }
+
+}
+
+
+/* =========================================
+   ANALYZE BODY
+========================================= */
+
+function analyzeBody(){
+
+    loading.style.display = "block";
+
+    result.style.display = "none";
+
+
+    /*
+       DEMO ANALYSIS
+
+       These values are placeholders.
+       Connect your actual AI backend here
+       when your computer-vision model is ready.
+    */
+
+
+    setTimeout(function(){
+
+        loading.style.display = "none";
+
+        result.style.display = "block";
+
+
+        /* DEMO BODY MEASUREMENTS */
+
+        document.getElementById("height").innerText =
+            "172 cm";
+
+        document.getElementById("shoulder").innerText =
+            "44 cm";
+
+        document.getElementById("chest").innerText =
+            "96 cm";
+
+        document.getElementById("waist").innerText =
+            "82 cm";
+
+
+        /* DEMO RECOMMENDATION */
+
+        document.getElementById("recommendedSize").innerText =
+            "M";
+
+
+        /* Update AI Match */
+
+        document.getElementById("matchChest").innerText =
+            "38\"";
+
+        document.getElementById("matchWaist").innerText =
+            "32\"";
+
+
+        /* Scroll to result */
+
+        result.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+
+    },3000);
+
+}
+
+
+/* =========================================
+   REGISTRATION SYSTEM
+========================================= */
+
+function openRegister(){
+    document.getElementById("registerOverlay").style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function closeRegister(){
+    document.getElementById("registerOverlay").style.display = "none";
+    document.body.style.overflow = "";
+}
+
+document.getElementById("registerOverlay").addEventListener("click", function(event){
+    if(event.target === this){
+        closeRegister();
+    }
+});
+
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape"){
+        closeRegister();
+    }
+});
+
+function registerUser(event){
+    event.preventDefault();
+
+    const password = document.getElementById("registerPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const message = document.getElementById("registerMessage");
+
+    if(password !== confirmPassword){
+        message.style.display = "block";
+        message.style.color = "#ff7b9c";
+        message.style.background = "rgba(255,70,120,.10)";
+        message.innerText = "Passwords do not match. Please try again.";
+        return;
+    }
+
+    const user = {
+        name: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("registerEmail").value.trim(),
+        phone: document.getElementById("phoneNumber").value.trim(),
+        gender: document.getElementById("gender").value,
+        dob: document.getElementById("dob").value,
+        password: password
+    };
+
+    // Demo-only browser storage. A real website should send this
+    // information securely to a backend/database.
+    localStorage.setItem("fitaiUser", JSON.stringify(user));
+
+    message.style.display = "block";
+    message.style.color = "#35e0dc";
+    message.style.background = "rgba(53,224,220,.12)";
+    message.innerText = "✓ Account created successfully! Welcome to FitAI.";
+
+    document.getElementById("registerForm").reset();
+
+    setTimeout(function(){
+        closeRegister();
+        message.style.display = "none";
+    }, 2200);
+}
+
+function showLoginMessage(event){
+    event.preventDefault();
+    alert("Login system can be connected next using the same FitAI account.");
+}
+
+
+/* =========================================
+   LOGIN SYSTEM
+========================================= */
+
+function openLogin(event){
+    if(event) event.preventDefault();
+
+    closeRegister();
+
+    document.getElementById("loginOverlay").style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    document.getElementById("loginMessage").style.display = "none";
+}
+
+function closeLogin(){
+    document.getElementById("loginOverlay").style.display = "none";
+    document.body.style.overflow = "";
+}
+
+function switchToRegister(event){
+    event.preventDefault();
+
+    closeLogin();
+    openRegister();
+}
+
+document.getElementById("loginOverlay").addEventListener("click", function(event){
+    if(event.target === this){
+        closeLogin();
+    }
+});
+
+function loginUser(event){
+    event.preventDefault();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const message = document.getElementById("loginMessage");
+
+    const savedUser = JSON.parse(localStorage.getItem("fitaiUser"));
+
+    if(!savedUser){
+        message.style.display = "block";
+        message.style.color = "#ff7b9c";
+        message.style.background = "rgba(255,70,120,.10)";
+        message.innerText = "No FitAI account found. Please register first.";
+        return;
+    }
+
+    /*
+       Front-end demo login.
+       For a real production website, authentication should be handled
+       securely by a backend/database rather than localStorage.
+    */
+
+    if(email.toLowerCase() !== savedUser.email.toLowerCase() ||
+       password !== savedUser.password){
+        message.style.display = "block";
+        message.style.color = "#ff7b9c";
+        message.style.background = "rgba(255,70,120,.10)";
+        message.innerText = "Incorrect email or password. Please try again.";
+        return;
+    }
+
+    localStorage.setItem("fitaiLoggedIn", "true");
+
+    message.style.display = "block";
+    message.style.color = "#35e0dc";
+    message.style.background = "rgba(53,224,220,.12)";
+    message.innerText = "✓ Login successful! Welcome, " + savedUser.name + ".";
+
+    document.getElementById("userWelcome").innerText =
+        "Logged in as " + savedUser.name;
+
+    setTimeout(function(){
+        closeLogin();
+
+        document.getElementById("scanner").scrollIntoView({
+            behavior:"smooth"
+        });
+    }, 1400);
+}
+
+/* Automatically show the logged-in user on page load */
+window.addEventListener("load", function(){
+
+    const savedUser = JSON.parse(localStorage.getItem("fitaiUser"));
+    const loggedIn = localStorage.getItem("fitaiLoggedIn");
+
+    if(savedUser && loggedIn === "true"){
+        console.log("FitAI user logged in:", savedUser.name);
+    }
+});
+
+</script>
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	  <div class="contact">
+
+    <p>
+        📞 Customer Care:
+        <a href="tel:+919876543210">+91 98765 43210</a>
+    </p>
+
+    <a href="https://www.instagram.com/FitAi/" target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+
+</div>
+<style>
+    .contact {
+        text-align: center;
+        margin-top: 30px;
+        font-family: Arial;
+    }
+
+    .contact a {
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .contact i {
+        font-size: 25px;
+        margin-right: 8px;
+    }
+</style>
+
+
+</body>
+
+</html>
