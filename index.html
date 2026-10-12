@@ -2235,6 +2235,49 @@ window.addEventListener("load", function(){
         margin-right: 8px;
     }
 </style>
+	
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://fggwdaechbszdqqutksf.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+const fitaiDB = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+async function testFitAIConnection() {
+    const status = document.getElementById("fitai-db-status");
+
+    status.textContent = "Connecting to FitAI database...";
+
+    const { data, error } = await fitaiDB
+        .from("size_charts")
+        .select("brand, size_label")
+        .limit(5);
+
+    if (error) {
+        status.textContent = "Database error: " + error.message;
+        console.error("FitAI database error:", error);
+        return;
+    }
+
+    status.textContent =
+        "Connected! Retrieved " + data.length +
+        " sample records. First brand: " +
+        (data[0]?.brand || "No brand found");
+
+    console.log("FitAI test records:", data);
+}
+
+document.addEventListener("DOMContentLoaded", testFitAIConnection);
+</script>
+
+<p id="fitai-db-status" style="padding:12px;font-family:Arial,sans-serif;">
+    FitAI database test has not started.
+</p>
+
 
 
 </body>
