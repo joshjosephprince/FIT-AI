@@ -2236,47 +2236,52 @@ window.addEventListener("load", function(){
     }
 </style>
 	
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<p id="fitai-db-status" style="padding:12px;font-family:Arial,sans-serif;">
+    Checking FitAI database connection...
+</p>
 
 <script>
 const SUPABASE_URL = "https://fggwdaechbszdqqutksf.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_f6SyqJDAZzreNFJ_3OgtgA_tSoz2Ie5";
 
-const fitaiDB = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
 async function testFitAIConnection() {
     const status = document.getElementById("fitai-db-status");
 
-    status.textContent = "Connecting to FitAI database...";
+    try {
+        if (!window.supabase) {
+            throw new Error("Supabase library did not load.");
+        }
 
-    const { data, error } = await fitaiDB
-        .from("size_charts")
-        .select("brand, size_label")
-        .limit(5);
+        const fitaiDB = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
 
-    if (error) {
-        status.textContent = "Database error: " + error.message;
-        console.error("FitAI database error:", error);
-        return;
+        const { data, error } = await fitaiDB
+            .from("size_charts")
+            .select("brand, size_label")
+            .limit(5);
+
+        if (error) throw error;
+
+        status.textContent =
+            "Connected! Retrieved " + data.length +
+            " records. First brand: " +
+            (data[0]?.brand || "No brand found");
+
+        console.log("FitAI test records:", data);
+    } catch (error) {
+        status.textContent = "Connection failed: " + error.message;
+        console.error("FitAI connection error:", error);
     }
-
-    status.textContent =
-        "Connected! Retrieved " + data.length +
-        " sample records. First brand: " +
-        (data[0]?.brand || "No brand found");
-
-    console.log("FitAI test records:", data);
 }
 
-document.addEventListener("DOMContentLoaded", testFitAIConnection);
+testFitAIConnection();
 </script>
 
-<p id="fitai-db-status" style="padding:12px;font-family:Arial,sans-serif;">
-    FitAI database test has not started.
-</p>
 
 
 
